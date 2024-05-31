@@ -2,9 +2,12 @@ import express from "express"; // import express
 import bcrypt from "bcrypt"; // to hash and salt the password
 import dotenv from "dotenv"; // access ids in .env file
 import mongoose from "mongoose";
+import cors from "cors";
 const app = express(); // use express in our app
 app.use(express.json()); // Middleware to parse JSON  // use json in our app
 dotenv.config(); // Load environment variables from .env file
+
+app.use(cors());
 
 // =========================================================== || todo schema || ===========================================================
 
