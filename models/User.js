@@ -9,7 +9,9 @@ const userSchema = new mongoose.Schema({
     match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   },
   password: { type: String, required: true },
-  todos: { type: mongoose.Schema.Types.ObjectId, ref: "Todo" }, // todo id
+  resetCode: { type: String, default: null },
+  resetCodeExpires: { type: Date, default: null },
+  // todos: { type: mongoose.Schema.Types.ObjectId, ref: "Todo" }, // todo id
 });
 
 const User = mongoose.model("User", userSchema);

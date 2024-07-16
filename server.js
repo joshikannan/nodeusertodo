@@ -1,3 +1,36 @@
+import express from "express";
+import cors from "cors";
+import connectDB from "./config/db.js";
+import userRoutes from "./routes/userRoutes.js";
+import todoRoutes from "./routes/todoRoutes.js";
+
+import dotenv from "dotenv";
+dotenv.config(); // Load environment variables from .env file // only config in entry point is enough
+
+const app = express(); // Use express in our app
+app.use(express.json()); // Middleware to parse JSON
+app.use(cors()); // Enable CORS
+
+// Connect to MongoDB
+connectDB();
+
+// Define routes // base routes
+app.use("/users", userRoutes);
+app.use("/todos", todoRoutes);
+
+app.get("/", (req, res) => {
+  res.json({ message: "Browser getting data from server" });
+});
+
+// Define the port where the server will run
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+/// complete code in single page , (config, controllers,models,routes,utlis) ************************
+
 // import express from "express"; // import express
 // import bcrypt from "bcrypt"; // to hash and salt the password
 // import dotenv from "dotenv"; // access ids in .env file
@@ -299,33 +332,3 @@
 //   .catch((error) => {
 //     console.error("Database connection error:", error);
 //   });
-
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import connectDB from "./config/db.js";
-import userRoutes from "./routes/userRoutes.js";
-import todoRoutes from "./routes/todoRoutes.js";
-
-dotenv.config(); // Load environment variables from .env file
-
-const app = express(); // Use express in our app
-app.use(express.json()); // Middleware to parse JSON
-app.use(cors()); // Enable CORS
-
-// Connect to MongoDB
-connectDB();
-
-// Define routes
-app.use("/users", userRoutes);
-app.use("/todos", todoRoutes);
-
-app.get("/", (req, res) => {
-  res.json({ message: "Browser getting data from server" });
-});
-
-// Define the port where the server will run
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
